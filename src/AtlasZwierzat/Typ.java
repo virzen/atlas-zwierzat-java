@@ -13,6 +13,11 @@ public class Typ {
     private String nazwa;
     private int szacowanaLiczba;
     private String typowaBudowaCiala;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public String getNazwa() {
         return nazwa;
@@ -42,5 +47,6 @@ public class Typ {
         this.nazwa = nazwa;
         this.szacowanaLiczba = szacowanaLiczba;
         this.typowaBudowaCiala = typowaBudowaCiala;
+        this.id = GeneratorId.getNewId();
     }
 }

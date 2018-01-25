@@ -26,7 +26,10 @@ public class EventBus extends Observable {
         return instance;
     }
     
-    static public void event(Object arg) {
+    static public void event(Zdarzenie arg) {
+        System.out.println(arg.getTyp().toString());
+        System.out.println(arg.getDane().toString());
+        
         getInstance().setChanged();
         getInstance().notifyObservers(arg);
     }

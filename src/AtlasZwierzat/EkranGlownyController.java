@@ -58,7 +58,67 @@ public class EkranGlownyController implements Initializable, Observer {
     public void setAtlas(Atlas atlas) {
         this.atlas = atlas;
     }
-
+    
+    @FXML
+    private void filtrujGatunki() {
+        String tekst = this.textField.getText();
+        
+        if ("".equals(tekst)) {
+            this.tree.setRoot(this.treeRoot);
+            return;
+        }
+        
+        this.filteredRoot.setExpanded(false);
+        this.filteredRoot.getChildren().clear();
+        
+        List<Gatunek> gatunki = this.atlas.filtrujGatunki(tekst);
+        gatunki.stream()
+                .map(g -> new TreeItem(g.getNazwa()))
+                .forEachOrdered(t -> {
+                    this.filteredRoot.getChildren().add(t);
+                });
+        
+        this.tree.setRoot(this.filteredRoot);
+        this.filteredRoot.setExpanded(true);
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        Zdarzenie zdarzenie = (Zdarzenie) arg;
+        
+        if (zdarzenie.getTyp() == TypZdarzenia.UTWORZ && zdarzenie.getDane() instanceof Typ) {
+            Typ typ = (Typ) zdarzenie.getDane();
+            if (this.atlas.znajdzTyp(typ.getNazwa()) != null) {
+                this.pokazAlertPorazki("Typ o danej nazwie juz istnieje.");
+                return;
+            }
+            
+            this.getAtlas().dodajTyp(typ);
+            
+            this.pokazAlertSukcesu("Typ " + typ.getNazwa() + " zostal dodany.");
+        }
+        
+        if (zdarzenie.getTyp() == TypZdarzenia.EDYTUJ && zdarzenie.getDane() instanceof EdytowanyTyp) {
+            EdytowanyTyp noweDaneTypu = (EdytowanyTyp) zdarzenie.getDane();
+            
+            Typ oryginalnyTyp = this.atlas.znajdzTyp(noweDaneTypu.getIdTypu());
+            
+            if (oryginalnyTyp == null) {
+                this.pokazAlertPorazki("Nie znaleziono typu o id " + noweDaneTypu.getId() + ".");
+                return;
+            }
+            
+            String poprzedniaNazwa = oryginalnyTyp.getNazwa();
+            oryginalnyTyp.setNazwa(noweDaneTypu.getNazwa());
+            oryginalnyTyp.setSzacowanaLiczba(noweDaneTypu.getSzacowanaLiczba());
+            oryginalnyTyp.setTypowaBudowaCiala(noweDaneTypu.getTypowaBudowaCiala());
+            
+            this.pokazAlertSukcesu("Typ " + poprzedniaNazwa + " zostal zmieniony na " + oryginalnyTyp.getNazwa() + ".");
+            this.otworzPodgladTypu(oryginalnyTyp);
+        }
+        
+        uzupelnijDrzewo();
+    }
     
     @FXML
     private void obsluzKlikniecieDrzewa() {
@@ -91,43 +151,6 @@ public class EkranGlownyController implements Initializable, Observer {
         }
     }
     
-    @FXML
-    private void filtrujGatunki() {
-        String tekst = this.textField.getText();
-        
-        if ("".equals(tekst)) {
-            this.tree.setRoot(this.treeRoot);
-            return;
-        }
-        
-        this.filteredRoot.setExpanded(false);
-        this.filteredRoot.getChildren().clear();
-        
-        List<Gatunek> gatunki = this.atlas.filtrujGatunki(tekst);
-        gatunki.stream()
-                .map(g -> new TreeItem(g.getNazwa()))
-                .forEachOrdered(t -> {
-                    this.filteredRoot.getChildren().add(t);
-                });
-        
-        this.tree.setRoot(this.filteredRoot);
-        this.filteredRoot.setExpanded(true);
-    }
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("update");
-        if (arg instanceof Typ) {
-            if (this.atlas.znajdzTyp(((Typ) arg).getNazwa()) != null) {
-                this.pokazAlertPorazki("Typ o danej nazwie juz istnieje.");
-                return;
-            }
-            
-            this.getAtlas().dodajTyp((Typ) arg);
-            this.uzupelnijDrzewo();
-        }
-    }
-    
     private void otworzPodgladAtlasu() {
         try {
             FXMLLoader loader = new FXMLLoader(PodgladAtlasuController.class.getResource("PodgladAtlasu.fxml"));
@@ -140,7 +163,17 @@ public class EkranGlownyController implements Initializable, Observer {
     }
     
     private void otworzPodgladTypu(Typ typ) {
-        System.out.print("klikniecie typu: " + typ.toString() + "\n");
+        try {
+            FXMLLoader loader = new FXMLLoader(PodgladTypuController.class.getResource("PodgladTypu.fxml"));
+            AnchorPane podgladTypu = (AnchorPane) loader.load();
+            BorderPane borderPane = (BorderPane) this.tree.getScene().getRoot();            
+            borderPane.setCenter(podgladTypu);
+            PodgladTypuController podgladTypuController = (PodgladTypuController) loader.getController();
+            podgladTypuController.setTyp(typ);
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(EkranGlownyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void otworzPodgladRodziny(Rodzina rodzina) {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AtlasZwierzat.PodgladTypuController">
+   <children>
+      <Text fx:id="title" layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Typ: " wrappingWidth="398.765625">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="przyciskUsunTyp" layoutX="14.0" layoutY="54.0" mnemonicParsing="false" onAction="#usunTyp" text="Usun" />
+      <Text layoutX="14.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa" />
+      <TextField fx:id="nazwaTypu" layoutX="14.0" layoutY="165.0" />
+      <Text layoutX="14.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Szacowana liczba" />
+      <TextField fx:id="szacowanaLiczbaTypu" layoutX="14.0" layoutY="222.0" />
+      <Text layoutX="14.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Typowa budowa ciała" />
+      <TextField fx:id="typowaBudowaCialaTypu" layoutX="14.0" layoutY="281.0" />
+      <Button fx:id="przyciskEdytujTyp" layoutX="16.0" layoutY="323.0" mnemonicParsing="false" onAction="#edytujTyp" text="Edytuj" />
+      <Text layoutX="14.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edytuj typ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="283.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utwórz rodzinę">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="283.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa" />
+      <TextField fx:id="nazwaRodziny" layoutX="283.0" layoutY="164.0" />
+      <Text layoutX="283.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cecha charakterystyczna" />
+      <TextField fx:id="cechaCharakterystycznaRodziny" layoutX="283.0" layoutY="221.0" />
+      <Text layoutX="283.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Średnia liczba kończyn" />
+      <TextField fx:id="sredniaLiczbaKonczynRodziny" layoutX="283.0" layoutY="280.0" />
+      <Button fx:id="przyciskUtworzRodzine" layoutX="285.0" layoutY="322.0" mnemonicParsing="false" onAction="#utworzRodzine" text="Utwórz" />
+   </children>
+</AnchorPane>

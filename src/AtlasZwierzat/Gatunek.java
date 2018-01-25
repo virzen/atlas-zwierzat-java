@@ -17,6 +17,7 @@ public class Gatunek {
     int liczbaKonczyn;
     String imieSlawnegoPrzedstawiciela;
     Rodzina rodzina;
+    int id;
 
     public String getNazwa() {
         return nazwa;
@@ -64,6 +65,7 @@ public class Gatunek {
         this.liczbaKonczyn = liczbaKonczyn;
         this.imieSlawnegoPrzedstawiciela = imieSlawnegoPrzedstawiciela;
         this.rodzina = rodzina;
+        this.id = GeneratorId.getNewId();
     }
     
 }

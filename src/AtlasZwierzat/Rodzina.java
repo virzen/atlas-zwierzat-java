@@ -14,6 +14,11 @@ public class Rodzina {
     private String cechaCharakterystyczna;
     private float sredniaLiczbaKonczyn;
     private Typ typ;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public String getNazwa() {
         return nazwa;
@@ -52,6 +57,7 @@ public class Rodzina {
         this.cechaCharakterystyczna = cechaCharakterystyczna;
         this.sredniaLiczbaKonczyn = sredniaLiczbaKonczyn;
         this.typ = typ;
+        this.id = GeneratorId.getNewId();
     }
     
 }

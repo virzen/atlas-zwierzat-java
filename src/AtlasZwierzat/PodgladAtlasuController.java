@@ -39,7 +39,9 @@ public class PodgladAtlasuController implements Initializable {
         String szacowanaLiczba = this.poleSzacowanaLiczba.getText();
         String typowaBudowaCiala = this.poleTypowaBudowaCiala.getText();
         
-        EventBus.event(new Typ(nazwa, Integer.parseInt(szacowanaLiczba), typowaBudowaCiala));
+        Typ nowyTyp = new Typ(nazwa, Integer.parseInt(szacowanaLiczba), typowaBudowaCiala);
+        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.UTWORZ, nowyTyp);
+        EventBus.event(zdarzenie);
     }
     
     /**

@@ -52,9 +52,26 @@ public class Atlas {
         this.typy = typy;
     }
     
-    
+    /**
+     * Znajduje typ w atlasie wedlug nazwy
+     * @param nazwa
+     * @return
+     */
     public Typ znajdzTyp(String nazwa) {
         Predicate<Typ> predykat = t -> t.getNazwa().equals(nazwa);
+        Typ typ = this.getTypy().stream().filter(predykat).findFirst().orElse(null); 
+        
+        return typ;
+    }
+    
+    /**
+     * Znajduje typ w atlasie wedlug id
+     * 
+     * @param id
+     * @return
+     */
+    public Typ znajdzTyp(int id) {
+        Predicate<Typ> predykat = t -> t.getId() == id;
         Typ typ = this.getTypy().stream().filter(predykat).findFirst().orElse(null); 
         
         return typ;
