@@ -5,15 +5,17 @@
  */
 package AtlasZwierzat;
 
+import java.io.Serializable;
+
 /**
  *
  * @author virzen
  */
-public class Typ {
+public class Typ implements Serializable {
     private String nazwa;
     private int szacowanaLiczba;
     private String typowaBudowaCiala;
-    private int id;
+    private final int id;
 
     public int getId() {
         return id;

@@ -117,6 +117,19 @@ public class EkranGlownyController implements Initializable, Observer {
             this.otworzPodgladTypu(oryginalnyTyp);
         }
         
+        if (zdarzenie.getTyp() == TypZdarzenia.USUN && zdarzenie.getDane() instanceof Typ) {
+            this.atlas.usunTyp((Typ) zdarzenie.getDane());
+            this.otworzPodgladAtlasu();
+        }
+        
+        if (zdarzenie.getTyp() == TypZdarzenia.ZAPISZ_ATLAS) {
+            this.zapiszAtlas((String) zdarzenie.getDane());
+        }
+        
+        if (zdarzenie.getTyp() == TypZdarzenia.WCZYTAJ_ATLAS) {
+            this.wczytajAtlas((String) zdarzenie.getDane());
+        }
+        
         uzupelnijDrzewo();
     }
     
@@ -226,11 +239,37 @@ public class EkranGlownyController implements Initializable, Observer {
     }
 
     public void pokazAlertPorazki(String tekst) {
+        this.pokazAlertPorazki(tekst, null);
+    }
+    
+    public void pokazAlertPorazki(String naglowek, String zawartosc) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Bład");
-        alert.setHeaderText(tekst);
+        alert.setHeaderText(naglowek);
+        alert.setContentText(zawartosc);
 
         alert.showAndWait();
+    }
+    
+    private void zapiszAtlas(String nazwaPliku) {
+        try {
+            SerializerAtlasu.zapisz(this.getAtlas(), nazwaPliku);
+        } catch (IOException ex) {
+            this.pokazAlertPorazki("Wystapił błąd podczas zapisywania atlasu.", ex.toString());
+        }
+        
+        this.pokazAlertSukcesu("Atlas został zapisany poprawnie.");
+    }
+    
+    private void wczytajAtlas(String nazwaPliku) {
+        try {
+            this.setAtlas(SerializerAtlasu.wczytaj(nazwaPliku));
+        } catch (IOException | ClassNotFoundException ex) {
+            this.pokazAlertPorazki("Wczytywanie atlasu zakonczyło się niepowodzeniem.", ex.toString());
+        }
+        
+        uzupelnijDrzewo();
+        this.pokazAlertSukcesu("Atlas został wczytany poprawnie.");
     }
     
     @Override

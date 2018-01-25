@@ -6,8 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="AtlasZwierzat.PodgladAtlasuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AtlasZwierzat.PodgladAtlasuController">
    <children>
       <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atlas">
          <font>
@@ -26,5 +25,8 @@
       </Text>
       <TextField fx:id="poleTypowaBudowaCiala" layoutX="14.0" layoutY="223.0" />
       <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Typowa budowa ciała" />
+      <Button layoutX="80.0" layoutY="15.0" mnemonicParsing="false" onAction="#zapiszAtlas" text="Zapisz" />
+      <Button layoutX="152.0" layoutY="15.0" mnemonicParsing="false" onAction="#wczytajAtlas" text="Wczytaj" />
+      <TextField fx:id="poleNazwaPliku" layoutX="236.0" layoutY="15.0" promptText="Nazwa pliku" />
    </children>
 </AnchorPane>

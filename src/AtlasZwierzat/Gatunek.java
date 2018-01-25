@@ -5,13 +5,14 @@
  */
 package AtlasZwierzat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author virzen
  */
-public class Gatunek {
+public class Gatunek implements Serializable {
     String nazwa;
     Date dataOdkrycia;
     int liczbaKonczyn;

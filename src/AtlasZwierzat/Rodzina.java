@@ -5,11 +5,13 @@
  */
 package AtlasZwierzat;
 
+import java.io.Serializable;
+
 /**
  *
  * @author virzen
  */
-public class Rodzina {
+public class Rodzina implements Serializable {
     private String nazwa;
     private String cechaCharakterystyczna;
     private float sredniaLiczbaKonczyn;

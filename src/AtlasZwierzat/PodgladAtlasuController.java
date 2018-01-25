@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
@@ -31,7 +32,16 @@ public class PodgladAtlasuController implements Initializable {
     private TextField poleSzacowanaLiczba;
     @FXML
     private TextField poleTypowaBudowaCiala;
-
+    @FXML
+    private Button przyciskZapiszAtlas;
+    @FXML 
+    private Button przyciskWczytajAtlas;
+    @FXML
+    private TextField poleNazwaPliku;
+    
+    private String getNazwaPliku() {
+        return this.poleNazwaPliku.getText();
+    }
 
     @FXML
     private void zapiszNowyTyp() {
@@ -41,6 +51,18 @@ public class PodgladAtlasuController implements Initializable {
         
         Typ nowyTyp = new Typ(nazwa, Integer.parseInt(szacowanaLiczba), typowaBudowaCiala);
         Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.UTWORZ, nowyTyp);
+        EventBus.event(zdarzenie);
+    }
+    
+    @FXML
+    private void zapiszAtlas() {
+        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.ZAPISZ_ATLAS, this.getNazwaPliku());
+        EventBus.event(zdarzenie);
+    }
+    
+    @FXML
+    private void wczytajAtlas() {
+        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.WCZYTAJ_ATLAS, this.getNazwaPliku());
         EventBus.event(zdarzenie);
     }
     
@@ -54,6 +76,7 @@ public class PodgladAtlasuController implements Initializable {
                 this.poleSzacowanaLiczba.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+        this.poleNazwaPliku.setText(SerializerAtlasu.getDomyslnaNazwaPliku());
     }       
 
 }

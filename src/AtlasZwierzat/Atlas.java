@@ -5,6 +5,7 @@
  */
 package AtlasZwierzat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author virzen
  */
-public class Atlas {
+public class Atlas implements Serializable {
     private List<Typ> typy = new ArrayList<>();
     private List<Rodzina> rodziny = new ArrayList<>();
     private List<Gatunek> gatunki = new ArrayList<>();

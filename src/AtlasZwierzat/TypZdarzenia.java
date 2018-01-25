@@ -10,5 +10,6 @@ package AtlasZwierzat;
  * @author virzen
  */
 public enum TypZdarzenia {
-    UTWORZ, EDYTUJ, USUN
+    UTWORZ, EDYTUJ, USUN,
+    ZAPISZ_ATLAS, WCZYTAJ_ATLAS
 }
