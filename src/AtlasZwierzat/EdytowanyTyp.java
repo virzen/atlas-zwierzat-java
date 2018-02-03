@@ -10,12 +10,11 @@ package AtlasZwierzat;
  * @author virzen
  */
 public class EdytowanyTyp extends Typ {
-    private int idTypu;
+    private final int idTypu;
     
     public int getIdTypu() {
         return idTypu;
     }
-    
     
     public EdytowanyTyp(String nazwa, int szacowanaLiczba, String typowaBudowaCiala, int idTypu) {
         super(nazwa, szacowanaLiczba, typowaBudowaCiala);

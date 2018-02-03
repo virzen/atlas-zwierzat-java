@@ -6,6 +6,7 @@
 package AtlasZwierzat;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 public class Gatunek implements Serializable {
     String nazwa;
-    Date dataOdkrycia;
+    LocalDate dataOdkrycia;
     int liczbaKonczyn;
     String imieSlawnegoPrzedstawiciela;
     Rodzina rodzina;
@@ -28,11 +29,11 @@ public class Gatunek implements Serializable {
         this.nazwa = nazwa;
     }
 
-    public Date getDataOdkrycia() {
+    public LocalDate getDataOdkrycia() {
         return dataOdkrycia;
     }
 
-    public void setDataOdkrycia(Date dataOdkrycia) {
+    public void setDataOdkrycia(LocalDate dataOdkrycia) {
         this.dataOdkrycia = dataOdkrycia;
     }
 
@@ -60,7 +61,7 @@ public class Gatunek implements Serializable {
         this.rodzina = rodzina;
     }
 
-    public Gatunek(String nazwa, Date dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina) {
+    public Gatunek(String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina) {
         this.nazwa = nazwa;
         this.dataOdkrycia = dataOdkrycia;
         this.liczbaKonczyn = liczbaKonczyn;

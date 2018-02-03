@@ -5,6 +5,7 @@
  */
 package AtlasZwierzat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class Krzyzowka extends Gatunek {
     private List<Gatunek> gatunki = new ArrayList<>();
 
-    public Krzyzowka(String nazwa, Date dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina, List<Gatunek> gatunki) {
+    public Krzyzowka(String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina, List<Gatunek> gatunki) {
         super(nazwa, dataOdkrycia, liczbaKonczyn, imieSlawnegoPrzedstawiciela, rodzina);
         this.gatunki = gatunki;
     }

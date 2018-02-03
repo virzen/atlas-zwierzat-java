@@ -86,6 +86,7 @@ public class EkranGlownyController implements Initializable, Observer {
     public void update(Observable o, Object arg) {
         Zdarzenie zdarzenie = (Zdarzenie) arg;
         
+        // TYP
         if (zdarzenie.getTyp() == TypZdarzenia.UTWORZ && zdarzenie.getDane() instanceof Typ) {
             Typ typ = (Typ) zdarzenie.getDane();
             if (this.atlas.znajdzTyp(typ.getNazwa()) != null) {
@@ -94,8 +95,7 @@ public class EkranGlownyController implements Initializable, Observer {
             }
             
             this.getAtlas().dodajTyp(typ);
-            
-            this.pokazAlertSukcesu("Typ " + typ.getNazwa() + " zostal dodany.");
+            this.otworzPodgladTypu(typ);
         }
         
         if (zdarzenie.getTyp() == TypZdarzenia.EDYTUJ && zdarzenie.getDane() instanceof EdytowanyTyp) {
@@ -122,6 +122,53 @@ public class EkranGlownyController implements Initializable, Observer {
             this.otworzPodgladAtlasu();
         }
         
+        // RODZINA
+        if (zdarzenie.getTyp() == TypZdarzenia.UTWORZ && zdarzenie.getDane() instanceof Rodzina) {
+            Rodzina rodzina = (Rodzina) zdarzenie.getDane();
+            this.atlas.dodajRodzine(rodzina);
+            this.otworzPodgladRodziny(rodzina);
+        }
+        
+        if (zdarzenie.getTyp() == TypZdarzenia.EDYTUJ && zdarzenie.getDane() instanceof EdytowanaRodzina) {
+            EdytowanaRodzina noweDaneRodziny = (EdytowanaRodzina) zdarzenie.getDane();
+            
+            Rodzina oryginalnaRodzina = this.atlas.znajdzRodzine(noweDaneRodziny.getIdRodziny());
+            
+            if (oryginalnaRodzina == null) {
+                this.pokazAlertPorazki("Nie znaleziono rodziny o id " + noweDaneRodziny.getId() + ".");
+                return;
+            }
+            
+            String poprzedniaNazwa = oryginalnaRodzina.getNazwa();
+            oryginalnaRodzina.setNazwa(noweDaneRodziny.getNazwa());
+            oryginalnaRodzina.setCechaCharakterystyczna(noweDaneRodziny.getCechaCharakterystyczna());
+            oryginalnaRodzina.setSredniaLiczbaKonczyn(noweDaneRodziny.getSredniaLiczbaKonczyn());
+            
+            this.otworzPodgladRodziny(oryginalnaRodzina);
+        }
+                
+        if (zdarzenie.getTyp() == TypZdarzenia.USUN && zdarzenie.getDane() instanceof Rodzina) {
+            Rodzina rodzina = (Rodzina) zdarzenie.getDane();
+            this.atlas.usunRodzine(rodzina);
+            this.otworzPodgladTypu(rodzina.getTyp());
+        }
+        
+        // GATUNEK
+        if (zdarzenie.getTyp() == TypZdarzenia.UTWORZ && zdarzenie.getDane() instanceof Gatunek) {
+            Gatunek gatunek = (Gatunek) zdarzenie.getDane();
+            this.atlas.dodajGatunek(gatunek);
+            this.otworzPodgladGatunku(gatunek);
+        }
+        
+        // TODO: edytuj gatunek
+                
+        if (zdarzenie.getTyp() == TypZdarzenia.USUN && zdarzenie.getDane() instanceof Gatunek) {
+            Gatunek gatunek = (Gatunek) zdarzenie.getDane();
+            this.atlas.usunGatunek(gatunek);
+            this.otworzPodgladRodziny(gatunek.getRodzina());
+        }
+        
+        // SERIALIZACJA
         if (zdarzenie.getTyp() == TypZdarzenia.ZAPISZ_ATLAS) {
             this.zapiszAtlas((String) zdarzenie.getDane());
         }
@@ -132,7 +179,7 @@ public class EkranGlownyController implements Initializable, Observer {
         
         uzupelnijDrzewo();
     }
-    
+
     @FXML
     private void obsluzKlikniecieDrzewa() {
         TreeItem wybrany = (TreeItem) this.tree.getSelectionModel().getSelectedItem();
@@ -190,7 +237,17 @@ public class EkranGlownyController implements Initializable, Observer {
     }
     
     private void otworzPodgladRodziny(Rodzina rodzina) {
-        System.out.print("klikniecie rodziny: " + rodzina.toString() + "\n");
+        try {
+            FXMLLoader loader = new FXMLLoader(PodgladTypuController.class.getResource("PodgladRodziny.fxml"));
+            AnchorPane podgladRodziny = (AnchorPane) loader.load();
+            BorderPane borderPane = (BorderPane) this.tree.getScene().getRoot();            
+            borderPane.setCenter(podgladRodziny);
+            PodgladRodzinyController podgladRodzinyController = (PodgladRodzinyController) loader.getController();
+            podgladRodzinyController.setRodzina(rodzina);
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(EkranGlownyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void otworzPodgladGatunku(Gatunek gatunek) {
