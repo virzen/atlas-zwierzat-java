@@ -346,6 +346,7 @@ public class EkranGlownyController implements Initializable {
             SerializerAtlasu.zapisz(this.getAtlas(), nazwaPliku);
         } catch (IOException ex) {
             this.pokazAlertPorazki("Wystapił błąd podczas zapisywania atlasu.", ex.toString());
+            return;
         }
         
         this.pokazAlertSukcesu("Atlas został zapisany poprawnie.");
@@ -356,6 +357,7 @@ public class EkranGlownyController implements Initializable {
             this.setAtlas(SerializerAtlasu.wczytaj(nazwaPliku));
         } catch (IOException | ClassNotFoundException ex) {
             this.pokazAlertPorazki("Wczytywanie atlasu zakonczyło się niepowodzeniem.", ex.toString());
+            return;
         }
         
         uzupelnijDrzewo();
