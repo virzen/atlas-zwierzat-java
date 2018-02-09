@@ -19,7 +19,12 @@ public class Gatunek implements Serializable {
     int liczbaKonczyn;
     String imieSlawnegoPrzedstawiciela;
     Rodzina rodzina;
+
     int id;
+
+    public int getId() {
+        return id;
+    }
 
     public String getNazwa() {
         return nazwa;
@@ -69,5 +74,9 @@ public class Gatunek implements Serializable {
         this.rodzina = rodzina;
         this.id = GeneratorId.getNewId();
     }
-    
+
+    @Override
+    public String toString() {
+        return nazwa;
+    }
 }

@@ -33,12 +33,9 @@ public class PodgladAtlasuController implements Initializable {
     @FXML
     private TextField poleTypowaBudowaCiala;
     @FXML
-    private Button przyciskZapiszAtlas;
-    @FXML 
-    private Button przyciskWczytajAtlas;
-    @FXML
     private TextField poleNazwaPliku;
-    
+    private EkranGlownyController rodzic;
+
     private String getNazwaPliku() {
         return this.poleNazwaPliku.getText();
     }
@@ -50,33 +47,33 @@ public class PodgladAtlasuController implements Initializable {
         String typowaBudowaCiala = this.poleTypowaBudowaCiala.getText();
         
         Typ nowyTyp = new Typ(nazwa, Integer.parseInt(szacowanaLiczba), typowaBudowaCiala);
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.UTWORZ, nowyTyp);
-        EventBus.event(zdarzenie);
+        rodzic.dodaj(nowyTyp);
     }
     
     @FXML
     private void zapiszAtlas() {
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.ZAPISZ_ATLAS, this.getNazwaPliku());
-        EventBus.event(zdarzenie);
+        rodzic.zapiszAtlas(getNazwaPliku());
     }
     
     @FXML
     private void wczytajAtlas() {
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.WCZYTAJ_ATLAS, this.getNazwaPliku());
-        EventBus.event(zdarzenie);
+        rodzic.wczytajAtlas(getNazwaPliku());
     }
-    
+
+    public void init(EkranGlownyController rodzic) {
+        this.rodzic = rodzic;
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.poleSzacowanaLiczba.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+        poleSzacowanaLiczba.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
-                this.poleSzacowanaLiczba.setText(newValue.replaceAll("[^\\d]", ""));
+                poleSzacowanaLiczba.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        this.poleNazwaPliku.setText(SerializerAtlasu.getDomyslnaNazwaPliku());
-    }       
-
+        poleNazwaPliku.setText(SerializerAtlasu.getDomyslnaNazwaPliku());
+    }
 }

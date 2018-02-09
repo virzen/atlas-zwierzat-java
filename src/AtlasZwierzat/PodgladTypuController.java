@@ -42,30 +42,27 @@ public class PodgladTypuController implements Initializable {
     private Button przyciskUtworzRodzine;
     
     private Typ typ;
+    private EkranGlownyController rodzic;
 
-    public void setTyp(Typ typ) {
-        this.typ = typ;
-        this.title.setText("Typ: " + typ.getNazwa());
-        this.nazwaTypu.setText(typ.getNazwa());
-        this.szacowanaLiczbaTypu.setText(Integer.toString(typ.getSzacowanaLiczba()));
-        this.typowaBudowaCialaTypu.setText(typ.getTypowaBudowaCiala());
+    public void uzuplenijPola() {
+        title.setText("Typ: " + typ.getNazwa());
+        nazwaTypu.setText(typ.getNazwa());
+        szacowanaLiczbaTypu.setText(Integer.toString(typ.getSzacowanaLiczba()));
+        typowaBudowaCialaTypu.setText(typ.getTypowaBudowaCiala());
     }
     
     @FXML
     private void edytujTyp() {
-        String nazwa = this.nazwaTypu.getText();
-        int szacowanaLiczba = Integer.parseInt(this.szacowanaLiczbaTypu.getText());
-        String typowaBudowaCiala = this.typowaBudowaCialaTypu.getText();
-        EdytowanyTyp edytowanyTyp = new EdytowanyTyp(nazwa, szacowanaLiczba, typowaBudowaCiala, this.typ.getId());
-        
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.EDYTUJ, edytowanyTyp);
-        EventBus.event(zdarzenie);
+        String nazwa = nazwaTypu.getText();
+        int szacowanaLiczba = Integer.parseInt(szacowanaLiczbaTypu.getText());
+        String typowaBudowaCiala = typowaBudowaCialaTypu.getText();
+
+        rodzic.edytujTyp(typ.getId(), nazwa, szacowanaLiczba, typowaBudowaCiala);
     }
     
     @FXML
     private void usunTyp() {
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.USUN, this.typ);
-        EventBus.event(zdarzenie);
+        rodzic.usun(typ);
     }
     
     @FXML
@@ -75,9 +72,14 @@ public class PodgladTypuController implements Initializable {
         int sredniaLiczbaKonczynRodziny = Integer.parseInt(this.sredniaLiczbaKonczynRodziny.getText());
         
         Rodzina nowaRodzina = new Rodzina(nazwa, cechaCharakterystyczna, sredniaLiczbaKonczynRodziny, this.typ);
-        Zdarzenie zdarzenie = new Zdarzenie(TypZdarzenia.UTWORZ, nowaRodzina);
-        
-        EventBus.event(zdarzenie);
+        rodzic.dodaj(nowaRodzina);
+    }
+
+    public void init(Typ typ, EkranGlownyController rodzic) {
+        this.typ = typ;
+        this.rodzic = rodzic;
+
+        uzuplenijPola();
     }
 
     /**
@@ -85,6 +87,5 @@ public class PodgladTypuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
-    
+    }
 }

@@ -27,13 +27,6 @@ public class Atlas implements Serializable {
     }
 
     /**
-     * @param typy
-     */
-    public void setTypy(List<Typ> typy) {
-        this.typy = typy;
-    }
-
-    /**
      * Znajduje typ w atlasie wedlug nazwy
      *
      * @param nazwa
@@ -63,14 +56,6 @@ public class Atlas implements Serializable {
         return rodziny;
     }
 
-    /**
-     * @param rodziny
-     */
-    public void setRodziny(List<Rodzina> rodziny) {
-        this.rodziny = rodziny;
-    }
-
-
     Rodzina znajdzRodzine(String nazwa) {
         Predicate<Rodzina> predykat = r -> r.getNazwa().equals(nazwa);
         Rodzina rodzina = this.getRodziny().stream().filter(predykat).findFirst().orElse(null);
@@ -89,32 +74,51 @@ public class Atlas implements Serializable {
         return gatunki;
     }
 
-    /**
-     * @param gatunki
-     */
-    public void setGatunki(List<Gatunek> gatunki) {
-        this.gatunki = gatunki;
-    }
-
 
     Gatunek znajdzGatunek(String nazwa) {
         Predicate<Gatunek> predykat = g -> g.getNazwa().equals(nazwa);
-        Gatunek gatunek = this.getGatunki().stream().filter(predykat).findFirst().orElse(null);
 
-        return gatunek;
+        return this.getGatunki().stream().filter(predykat).findFirst().orElse(null);
     }
 
-    /**
-     * @param typ
-     */
-    public void dodajTyp(Typ typ) {
+    Gatunek znajdzGatunek(int id) {
+        Predicate<Gatunek> predykat = g -> g.getId() == id;
+
+        return this.getGatunki().stream().filter(predykat).findFirst().orElse(null);
+    }
+
+    public Krzyzowka znajdzKrzyzowke(String nazwa) {
+        Predicate<Gatunek> predykat = g -> g.getNazwa().equals(nazwa);
+        Gatunek gatunek = this.getGatunki().stream().filter(predykat).findFirst().orElse(null);
+
+        System.out.println(gatunek);
+
+        if (gatunek instanceof Krzyzowka) {
+            return (Krzyzowka) gatunek;
+        }
+
+        return null;
+    }
+
+    List<Gatunek> znajdzGatunkiRodziny(Rodzina rodzina) {
+        Predicate<Gatunek> predykat = g -> g.getRodzina().equals(rodzina);
+
+        return getGatunki().stream().filter(predykat).collect(Collectors.toList());
+    }
+
+    public void dodaj(Typ typ) {
         this.typy.add(typ);
     }
 
-    /**
-     * @param typ
-     */
-    public void usunTyp(Typ typ) {
+    public void dodaj(Rodzina rodzina) {
+        this.rodziny.add(rodzina);
+    }
+
+    public void dodaj(Gatunek gatunek) {
+        this.gatunki.add(gatunek);
+    }
+
+    public void usun(Typ typ) {
         int index = this.typy.indexOf(typ);
 
         if (index != -1) {
@@ -122,39 +126,19 @@ public class Atlas implements Serializable {
         }
     }
 
-    /**
-     * @param rodzina
-     */
-    public void dodajRodzine(Rodzina rodzina) {
-        this.rodziny.add(rodzina);
-    }
-
-    /**
-     * @param rodzina
-     */
-    public void usunRodzine(Rodzina rodzina) {
+    public void usun(Rodzina rodzina) {
         int index = this.rodziny.indexOf(rodzina);
 
         if (index != -1) {
-            typy.remove(index);
+            rodziny.remove(index);
         }
     }
 
-    /**
-     * @param gatunek
-     */
-    public void dodajGatunek(Gatunek gatunek) {
-        this.gatunki.add(gatunek);
-    }
-
-    /**
-     * @param gatunek
-     */
-    public void usunGatunek(Gatunek gatunek) {
+    public void usun(Gatunek gatunek) {
         int index = this.gatunki.indexOf(gatunek);
 
         if (index != -1) {
-            typy.remove(index);
+            gatunki.remove(index);
         }
     }
 

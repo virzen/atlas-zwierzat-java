@@ -9,13 +9,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author virzen
  */
 public class Krzyzowka extends Gatunek {
-    private List<Gatunek> gatunki = new ArrayList<>();
+    private List<Gatunek> gatunki;
 
     public Krzyzowka(String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina, List<Gatunek> gatunki) {
         super(nazwa, dataOdkrycia, liczbaKonczyn, imieSlawnegoPrzedstawiciela, rodzina);
@@ -31,12 +32,6 @@ public class Krzyzowka extends Gatunek {
     }
     
     public List<Rodzina> getRodziny() {
-        List<Rodzina> rodziny = new ArrayList<>();
-        
-        for (Gatunek gatunek : this.gatunki) {
-            rodziny.add(gatunek.getRodzina());
-        }
-        
-        return rodziny;
+        return this.gatunki.stream().map(g -> g.rodzina).collect(Collectors.toList());
     }
 }

@@ -23,8 +23,7 @@ public class Main extends Application {
         Parent root = loader.load();
         
         EkranGlownyController ekranGlowny = loader.getController();
-        EventBus.getInstance().addObserver(ekranGlowny);
-        
+
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

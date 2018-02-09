@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AtlasZwierzat.EkranGlownyController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AtlasZwierzat.EkranGlownyController">
    <left>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,7 +17,7 @@
       </Pane>
    </left>
    <center>
-      <Pane fx:id="pane" prefHeight="200.0" prefWidth="451.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="pane" prefHeight="467.0" prefWidth="689.0" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atlas zwierząt" wrappingWidth="302.56982421875">
                <font>
