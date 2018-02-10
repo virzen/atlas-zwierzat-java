@@ -39,6 +39,9 @@ public class PodgladRodzinyController implements Initializable {
     private Rodzina rodzina;
     private EkranGlownyController rodzic;
 
+    /**
+     * Wypelnia pola formularza danymi rodziny
+     */
     public void uzupelnijPola() {
         tytul.setText("Rodzina: " + rodzina.getNazwa());
         nazwaRodziny.setText(rodzina.getNazwa());
@@ -46,6 +49,10 @@ public class PodgladRodzinyController implements Initializable {
         sredniaLiczbaKonczynRodziny.setText(Float.toString(rodzina.getSredniaLiczbaKonczyn()));
     }
 
+    /**
+     * Wypelnia pole listy gatunkow nalezacymi do rodziny gatunkami
+     * @param gatunkiRodziny
+     */
     public void uzupelnijGatunki(List<Gatunek> gatunkiRodziny) {
         assert listaGatunkowKrzyzowki != null : "listaGatunkowKrzyzowki is null";
 
@@ -74,7 +81,10 @@ public class PodgladRodzinyController implements Initializable {
 
         rodzic.edytujRodzine(rodzina.getId(), nazwa, cechaCharakterystyczna, sredniaLiczbaKonczyn);
     }
-    
+
+    /**
+     * Tworzy gatunek lub krzyzowke na podstawie danych w polach formularza
+     */
     @FXML
     private void utworzGatunek() {
         assert listaGatunkowKrzyzowki.getSelectionModel().getSelectedItems().size() <= 2 : "too many selected species";

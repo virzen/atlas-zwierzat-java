@@ -34,12 +34,18 @@ public class PodgladGatunkuController implements Initializable {
         this.rodzic.usun(this.gatunek);
     }
 
+    /**
+     * Ustawia nazwe gatunku jako tytul widoku
+     */
     private void ustawTytul() {
         assert tytul != null : "tytul nie jest zainicjalizowany";
 
         tytul.setText("Gatunek: " + this.gatunek.getNazwa());
     }
 
+    /**
+     * Uzupelnia pola formularza danymi gatunku
+     */
     private void uzupelnijPola() {
         poleNazwa.setText(gatunek.getNazwa());
         poleDataOdkrycia.setValue(gatunek.getDataOdkrycia());

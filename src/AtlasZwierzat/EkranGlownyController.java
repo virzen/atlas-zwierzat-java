@@ -39,14 +39,20 @@ public class EkranGlownyController implements Initializable {
     private PodgladAtlasuController podgladAtlasuController;
     private Atlas atlas;
 
+    /**
+     * @return Atlas
+     */
     public Atlas getAtlas() {
         return atlas;
     }
 
+    /**
+     * @param atlas
+     */
     public void setAtlas(Atlas atlas) {
         this.atlas = atlas;
     }
-    
+
     @FXML
     private void filtrujGatunki() {
         String tekst = this.textField.getText();
@@ -69,31 +75,55 @@ public class EkranGlownyController implements Initializable {
         this.tree.setRoot(this.filteredRoot);
         this.filteredRoot.setExpanded(true);
     }
-    
+
+    /**
+     * Dodaje gatunek do atlasu i pokazuje jego podglad
+     * @param gatunek
+     */
     public void dodaj(Gatunek gatunek) {
         atlas.dodaj(gatunek);
         uzupelnijDrzewo();
         otworzPodglad(gatunek);
     }
 
+    /**
+     * Dodaje krzyzowke do atlasu i pokazuje jego podglad
+     * @param krzyzowka
+     */
     public void dodaj(Krzyzowka krzyzowka) {
         atlas.dodaj(krzyzowka);
         uzupelnijDrzewo();
         otworzPodglad(krzyzowka);
     }
 
+    /**
+     * Dodaje rodzine do atlasu i pokazuje jego podglad
+     * @param rodzina
+     */
     public void dodaj(Rodzina rodzina) {
         atlas.dodaj(rodzina);
         uzupelnijDrzewo();
         otworzPodglad(rodzina);
     }
 
+    /**
+     * Dodaje typ do atlasu i pokazuje jego podglad
+     * @param typ
+     */
     public void dodaj(Typ typ) {
         atlas.dodaj(typ);
         uzupelnijDrzewo();
         otworzPodglad(typ);
     }
 
+    /**
+     * Ustawia podane informacje gatunki o podanym id i otwiera jego podglad
+     * @param id
+     * @param nazwa
+     * @param dataOdkrycia
+     * @param liczbaKonczyn
+     * @param imieSlawnegoPrzedstawiciela
+     */
     public void edytujGatunek(int id, String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela) {
         Gatunek gatunek = atlas.znajdzGatunek(id);
 
@@ -109,6 +139,15 @@ public class EkranGlownyController implements Initializable {
         uzupelnijDrzewo();
     }
 
+    /**
+     * Ustawia podane informacje krzyzowce o podanym id i otwiera jego podglad
+     * @param id
+     * @param nazwa
+     * @param dataOdkrycia
+     * @param liczbaKonczyn
+     * @param imieSlawnegoPrzedstawiciela
+     * @param gatunki
+     */
     public void edytujKrzyzowke(int id, String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, List<Gatunek> gatunki) {
         Krzyzowka krzyzowka = (Krzyzowka) atlas.znajdzGatunek(id);
 
@@ -125,6 +164,13 @@ public class EkranGlownyController implements Initializable {
         uzupelnijDrzewo();
     }
 
+    /**
+     * Ustawia podane informacje rodzinie o podanym id i otwiera jego podglad
+     * @param id
+     * @param nazwa
+     * @param cechaCharakterystyczna
+     * @param sredniaLiczbaKonczyn
+     */
     public void edytujRodzine(int id, String nazwa, String cechaCharakterystyczna, float sredniaLiczbaKonczyn) {
         Rodzina rodzina = atlas.znajdzRodzine(id);
 
@@ -139,6 +185,13 @@ public class EkranGlownyController implements Initializable {
         uzupelnijDrzewo();
     }
 
+    /**
+     * Ustawia podane informacje typowi o podanym id i otwiera jego podglad
+     * @param id
+     * @param nazwa
+     * @param szacowanaLiczba
+     * @param typowaBudowaCiala
+     */
     public void edytujTyp(int id, String nazwa, int szacowanaLiczba, String typowaBudowaCiala) {
         Typ typ = atlas.znajdzTyp(id);
 
@@ -152,31 +205,42 @@ public class EkranGlownyController implements Initializable {
         uzupelnijDrzewo();
     }
 
+    /**
+     * Usuwa dany gatunek z atlasu i zmianie podglad na jego rodzine
+     * @param gatunek
+     */
     public void usun(Gatunek gatunek) {
         this.atlas.usun(gatunek);
         this.otworzPodglad(gatunek.getRodzina());
         uzupelnijDrzewo();
     }
 
+    /**
+     * Usuwa dana krzyzowke z atlasu i otwiera podglad jej rodziny
+     * @param krzyzowka
+     */
     public void usun(Krzyzowka krzyzowka) {
         usun((Gatunek) krzyzowka);
     }
 
+    /**
+     * Usuwa dana rodzine z atlasu i otwera podglad jej typu
+     * @param rodzina
+     */
     public void usun(Rodzina rodzina) {
         this.atlas.usun(rodzina);
         this.otworzPodglad(rodzina.getTyp());
         uzupelnijDrzewo();
     }
 
+    /**
+     * Usuwa dany typ z atlasu i otwera podglad atlasu
+     * @param typ
+     */
     public void usun(Typ typ) {
         this.atlas.usun(typ);
         this.otworzPodgladAtlasu();
         uzupelnijDrzewo();
-    }
-
-    // TODO
-    private void wybierzElementDrzewa() {
-        System.out.println("webierz element drzewa");
     }
 
     @FXML
@@ -319,7 +383,11 @@ public class EkranGlownyController implements Initializable {
         this.treeRoot.setExpanded(true);
         this.tree.setRoot(this.treeRoot);
     }
-    
+
+    /**
+     * Pokazuje alert sukcesu o podanej tresci
+     * @param tekst
+     */
     public void pokazAlertSukcesu(String tekst) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sukces");
@@ -328,40 +396,49 @@ public class EkranGlownyController implements Initializable {
         alert.showAndWait();
     }
 
-    public void pokazAlertPorazki(String tekst) {
-        this.pokazAlertPorazki(tekst, null);
-    }
-    
+    /**
+     * Pokazuje alert porazki o podanym naglowku i zawartosci
+     * @param naglowek
+     * @param zawartosc
+     */
     public void pokazAlertPorazki(String naglowek, String zawartosc) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Bład");
+        alert.setTitle("Blad");
         alert.setHeaderText(naglowek);
         alert.setContentText(zawartosc);
 
         alert.showAndWait();
     }
-    
+
+    /**
+     * Zapisuje atlas do pliku o podanej nazwie
+     * @param nazwaPliku
+     */
     public void zapiszAtlas(String nazwaPliku) {
         try {
             SerializerAtlasu.zapisz(this.getAtlas(), nazwaPliku);
         } catch (IOException ex) {
-            this.pokazAlertPorazki("Wystapił błąd podczas zapisywania atlasu.", ex.toString());
+            this.pokazAlertPorazki("Wystapil blad podczas zapisywania atlasu.", ex.toString());
             return;
         }
         
-        this.pokazAlertSukcesu("Atlas został zapisany poprawnie.");
+        this.pokazAlertSukcesu("Atlas zostal zapisany poprawnie.");
     }
-    
+
+    /**
+     * Wczytuje atlas z pliku o podanej nazwie
+     * @param nazwaPliku
+     */
     public void wczytajAtlas(String nazwaPliku) {
         try {
             this.setAtlas(SerializerAtlasu.wczytaj(nazwaPliku));
         } catch (IOException | ClassNotFoundException ex) {
-            this.pokazAlertPorazki("Wczytywanie atlasu zakonczyło się niepowodzeniem.", ex.toString());
+            this.pokazAlertPorazki("Wczytywanie atlasu zakonczylo sie niepowodzeniem.", ex.toString());
             return;
         }
         
         uzupelnijDrzewo();
-        this.pokazAlertSukcesu("Atlas został wczytany poprawnie.");
+        this.pokazAlertSukcesu("Atlas zostal wczytany poprawnie.");
     }
     
     @Override

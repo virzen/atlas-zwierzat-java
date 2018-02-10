@@ -49,6 +49,6 @@ public class Typ implements Serializable {
         this.nazwa = nazwa;
         this.szacowanaLiczba = szacowanaLiczba;
         this.typowaBudowaCiala = typowaBudowaCiala;
-        this.id = GeneratorId.getNewId();
+        this.id = GeneratorId.wygenerujId();
     }
 }

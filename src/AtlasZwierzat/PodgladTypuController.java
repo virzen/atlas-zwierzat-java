@@ -7,7 +7,7 @@ package AtlasZwierzat;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventType;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -44,7 +44,10 @@ public class PodgladTypuController implements Initializable {
     private Typ typ;
     private EkranGlownyController rodzic;
 
-    public void uzuplenijPola() {
+    /**
+     * Wypelnia pola formularza danymi typu
+     */
+    public void uzupelnijPola() {
         title.setText("Typ: " + typ.getNazwa());
         nazwaTypu.setText(typ.getNazwa());
         szacowanaLiczbaTypu.setText(Integer.toString(typ.getSzacowanaLiczba()));
@@ -79,7 +82,7 @@ public class PodgladTypuController implements Initializable {
         this.typ = typ;
         this.rodzic = rodzic;
 
-        uzuplenijPola();
+        uzupelnijPola();
     }
 
     /**

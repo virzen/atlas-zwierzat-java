@@ -7,10 +7,8 @@ package AtlasZwierzat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
- *
  * @author virzen
  */
 public class Gatunek implements Serializable {
@@ -62,17 +60,13 @@ public class Gatunek implements Serializable {
         return rodzina;
     }
 
-    public void setRodzina(Rodzina rodzina) {
-        this.rodzina = rodzina;
-    }
-
     public Gatunek(String nazwa, LocalDate dataOdkrycia, int liczbaKonczyn, String imieSlawnegoPrzedstawiciela, Rodzina rodzina) {
         this.nazwa = nazwa;
         this.dataOdkrycia = dataOdkrycia;
         this.liczbaKonczyn = liczbaKonczyn;
         this.imieSlawnegoPrzedstawiciela = imieSlawnegoPrzedstawiciela;
         this.rodzina = rodzina;
-        this.id = GeneratorId.getNewId();
+        this.id = GeneratorId.wygenerujId();
     }
 
     @Override

@@ -59,7 +59,7 @@ public class Rodzina implements Serializable {
         this.cechaCharakterystyczna = cechaCharakterystyczna;
         this.sredniaLiczbaKonczyn = sredniaLiczbaKonczyn;
         this.typ = typ;
-        this.id = GeneratorId.getNewId();
+        this.id = GeneratorId.wygenerujId();
     }
     
 }

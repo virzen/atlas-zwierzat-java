@@ -11,10 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author virzen
- */
 public class Krzyzowka extends Gatunek {
     private List<Gatunek> gatunki;
 
@@ -29,9 +25,5 @@ public class Krzyzowka extends Gatunek {
 
     public void setGatunki(List<Gatunek> gatunki) {
         this.gatunki = gatunki;
-    }
-    
-    public List<Rodzina> getRodziny() {
-        return this.gatunki.stream().map(g -> g.rodzina).collect(Collectors.toList());
     }
 }

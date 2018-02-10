@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ * Tworzy scene i renderuje na niej glowny kontroler
  * @author virzen
  */
 public class Main extends Application {
@@ -21,8 +21,6 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(EkranGlownyController.class.getResource("EkranGlowny.fxml"));
         Parent root = loader.load();
-        
-        EkranGlownyController ekranGlowny = loader.getController();
 
         Scene scene = new Scene(root);
         

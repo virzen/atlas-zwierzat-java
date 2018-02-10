@@ -6,13 +6,13 @@
 package AtlasZwierzat;
 
 /**
- *
+ * Generuje unikalne id
  * @author virzen
  */
 public class GeneratorId {
     private static int lastId = 0;
     
-    public static int getNewId() {
+    public static int wygenerujId() {
         return ++lastId;
     }
 }

@@ -14,7 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- *
+ * Serializuje atlas do pliku
  * @author virzen
  */
 public class SerializerAtlasu {
@@ -23,11 +23,13 @@ public class SerializerAtlasu {
     private static String getNazwaPliku(String podanaNazwa) {
         return podanaNazwa == null ? DOMYSLNA_NAZWA_PLIKU : podanaNazwa;
     }
-    
-    public static String getDomyslnaNazwaPliku() {
-        return DOMYSLNA_NAZWA_PLIKU;
-    }
-    
+
+    /**
+     * Zapisuje podany atlas do pliku o podanej lub domyslnej nazwie pliku
+     * @param atlas
+     * @param nazwaPliku
+     * @throws IOException
+     */
     public static void zapisz(Atlas atlas, String nazwaPliku) throws IOException {
         String faktycznaNazwaPliku = getNazwaPliku(nazwaPliku);
         
@@ -37,11 +39,14 @@ public class SerializerAtlasu {
             out.writeObject(atlas);
         }
     }
-    
-    public static void zapisz(Atlas atlas) throws IOException {
-        zapisz(atlas, null);
-    }
-    
+
+    /**
+     * Wczytuje atlas z pliku o podanej lub domyslnej nazwie
+     * @param nazwaPliku
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Atlas wczytaj(String nazwaPliku) throws IOException, ClassNotFoundException {
         String faktycznaNazwaPliku = getNazwaPliku(nazwaPliku);
         Atlas atlas;
@@ -53,9 +58,5 @@ public class SerializerAtlasu {
         }
         
         return atlas;
-    }
-    
-    public static Atlas wczytaj() throws IOException, ClassNotFoundException {
-        return wczytaj(null);
     }
 }

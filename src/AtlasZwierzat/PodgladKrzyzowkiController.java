@@ -38,12 +38,18 @@ public class PodgladKrzyzowkiController extends PodgladGatunkuController impleme
         this.rodzic.usun(this.krzyzowka);
     }
 
+    /**
+     * Ustawia nazwe krzyzowki jako tytul widoku
+     */
     private void ustawTytul() {
         assert tytul != null : "tytul nie jest zainicjalizowany";
 
         tytul.setText("Krzyzowka: " + this.krzyzowka.getNazwa());
     }
 
+    /**
+     * Uzupelnia pola formularza danymi krzyzowki
+     */
     private void uzupelnijPola() {
         poleNazwa.setText(krzyzowka.getNazwa());
         poleDataOdkrycia.setValue(krzyzowka.getDataOdkrycia());

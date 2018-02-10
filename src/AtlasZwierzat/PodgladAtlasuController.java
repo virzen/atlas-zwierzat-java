@@ -69,11 +69,5 @@ public class PodgladAtlasuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        poleSzacowanaLiczba.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                poleSzacowanaLiczba.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        poleNazwaPliku.setText(SerializerAtlasu.getDomyslnaNazwaPliku());
     }
 }
